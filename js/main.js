@@ -1,109 +1,75 @@
-//Impotamos el botón de evasión 
-
-import { esquivarBoton } from "./evasionLogic.js";
- 
+import { esquivarBoton } from './evasionLogic.js';
 
 const btnSi = document.getElementById('btn-si');
 const btnNo = document.getElementById('btn-no');
+const textoMensaje = document.getElementById('mensaje');
+const titulo = document.querySelector('h1');
+let intentos = 0;
 
-const titulo = document.getElementById('titulo');
-const textoMensaje =  document.getElementById('mensaje');
-
-
-//Cuenta de los intentos
-
-
-let intentos =0;
-
-
-//Evasión de los intentos
-
-
-function reaccionarBotonNo(e) {
-    // 🛑 EL FRENO DE MANO:
-    // Si el evento tiene "cancelable", lo detenemos para que no se ejecute dos veces
-    if (e && e.cancelable) {
-        e.preventDefault();
-    }
+// --- FUNCIÓN DE VICTORIA (PERRITO) ---
+function victoria() {
+    titulo.style.display = 'none';
+    btnNo.style.display = 'none';
+    textoMensaje.style.display = 'block';
     
-    // También detenemos la "propagación" para que no salte a otros elementos
-    if (e) {
-        e.stopPropagation();
-    }
+    textoMensaje.innerHTML = `
+        <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dTg3dW8wMzh3dzFwODI0NWVxNDM1dDl4Nm56M3RveGJkenY1OTFuaSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/jp2KXzsPtoKFG/giphy.gif" 
+             style="width: 200px; border-radius: 15px; margin-bottom: 20px;">
+        <br><br>
+        <b style="color: #ffb3c6;">¡Confirmadísimo! Ya no hay vuelta atrás... 😎</b>
+    `;
 
-    console.log("Evento:", e.type, "Intento actual:", intentos);
+    btnSi.innerText = "¡Excelente! 😁";
+    btnSi.style.pointerEvents = 'none'; 
+}
+
+// --- FUNCIÓN DE DERROTA (BEBÉ) ---
+function derrota() {
+    titulo.style.display = 'none';
+    btnSi.style.display = 'none';
+    btnNo.style.display = 'none';
+    textoMensaje.style.display = 'block';
+
+    textoMensaje.innerHTML = `
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHJybGFhNHBlN3JsdWluYnc5dWUxdWQ2MmFiaXl2MmJ4ZHFtM3c2MiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/4V3RuU0zSq1SC8Hh4x/giphy.gif" 
+             style="width: 200px; border-radius: 15px; margin-bottom: 20px;">
+        <br><br>
+        <p style="color: #ffb3c6;">Ni modo... se intentó. <br>
+    `;
+}
+
+// --- LÓGICA DEL BOTÓN NO ---
+function manejarNo(e) {
+    if (e.cancelable) e.preventDefault();
 
     if (intentos === 0) {
         textoMensaje.innerText = "Ups, creo que tu dedo se resbaló. Inténtalo de nuevo :)";
         esquivarBoton(btnNo);
         intentos++;
-        titulo.style.display = 'none';
     } else if (intentos === 1) {
-        textoMensaje.innerText = "¿Segura? El domingo va a estar aburrido sin ti..... :(";
+        textoMensaje.innerText = "¿Segura? El domingo va a estar aburrido sin ti... :(";
         esquivarBoton(btnNo);
         intentos++;
-        titulo.style.display = 'none';
     } else if (intentos === 2) {
-        textoMensaje.innerText = "Última oportunidad antes de que el botón deje de moverse 🥺🥺 ";
+        textoMensaje.innerText = "Última oportunidad antes de que el botón deje de moverse 🥺";
         esquivarBoton(btnNo);
         intentos++;
-        titulo.style.display = 'none';
-    } else if (intentos === 3) { // 👈 Aseguramos que sea exactamente el intento 3
-        // 4to intento: Aquí es donde aparece el botón rosa
+    } else if (intentos === 3) {
+        // ACTIVAMOS EL BOTÓN ROSA (RECHAZAR)
         textoMensaje.innerText = ""; 
         btnNo.innerText = "Rechazar";
-        
         btnSi.innerText = "¡Ándale, di que sí! 😁"; 
         btnSi.style.backgroundColor = "white";
         btnSi.style.color = "black";
-        btnSi.style.transform = "scale(1.1)";
-        
-        titulo.style.display = 'none';
-        intentos++; // Subimos a 4 para que ya no entre aquí
+        intentos++; // Subimos a 4 para que la próxima entre a derrota()
+    } else if (intentos >= 4) {
+        derrota();
     }
+    
+    titulo.style.display = 'none';
 }
 
-
-btnNo.addEventListener('mouseenter', reaccionarBotonNo);
-btnNo.addEventListener('touchstart', reaccionarBotonNo);
-
-
-//Final feliz :)
-
-btnSi.addEventListener('click', () => {
-    // 1. Desaparecemos el título y el botón No
-    titulo.style.display = 'none';
-    btnNo.style.display = 'none';
-
-    textoMensaje.style.display = 'block';
-
-    // 2. EL FATALITY VISUAL (Ojo: ¡innerHTML en mayúsculas!)
-    textoMensaje.innerHTML = `
-        <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3dTg3dW8wMzh3dzFwODI0NWVxNDM1dDl4Nm56M3RveGJkenY1OTFuaSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/jp2KXzsPtoKFG/giphy.gif" 
-             alt="Meme de victoria" 
-             style="width: 200px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-        <br><br>
-        <b>¡Confirmadísimo! Ya no hay vuelta atrás... 😎</b>
-    `;
-
-    // 3. Cambiamos el texto del botón Sí y lo desactivamos
-    btnSi.innerText = "¡Excelente! 😁";
-    btnSi.style.pointerEvents = 'none'; 
-});
-
-btnNo.addEventListener('click', () => {
-    if (intentos >= 3) { // Solo si ya pasó por todos los saltos
-        titulo.style.display = 'none';
-        btnSi.style.display = 'none';
-        btnNo.style.display = 'none';
-
-        // Mostramos un meme de resignación o tristeza graciosa
-        textoMensaje.style.display = 'block';
-        textoMensaje.innerHTML = `
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHJybGFhNHBlN3JsdWluYnc5dWUxdWQ2MmFiaXl2MmJ4ZHFtM3c2MiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/4V3RuU0zSq1SC8Hh4x/giphy.gif" 
-                 style="width: 200px; border-radius: 15px; margin-bottom: 20px;">
-            <br><br>
-            <p style="color: #ffb3c6;">Ni modo... se intentó. <br>
-        `;
-    }
-});
+// --- EVENTOS (USAMOS CLICK PARA MÁXIMA COMPATIBILIDAD) ---
+// Si el CSS ya tiene touch-action: manipulation, el click ya no tiene lag.
+btnSi.addEventListener('click', victoria);
+btnNo.addEventListener('click', manejarNo);
