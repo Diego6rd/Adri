@@ -10,24 +10,38 @@ body {
     background: linear-gradient(135deg, #1a0b1c 0%, #301828 100%);
     font-family: 'Poppins', sans-serif;
     color: white;
+    
+    /* 🔥 CENTRADO TOTAL CORREGIDO 🔥 */
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden; 
+    justify-content: center; /* Centra horizontal */
+    align-items: center;     /* Centra vertical */
+    min-height: 100vh;       /* Usa al menos el alto de la pantalla */
+    width: 100vw;            /* Asegura el ancho total */
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
 .card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(15px);
     border-radius: 20px;
-    padding: 50px 40px;
+    
+    /* 📱 AJUSTE DE ESPACIOS 📱 */
+    padding: 40px 25px;   /* Menos espacio a los lados, más arriba y abajo */
     text-align: center;
-    width: 450px;
-    max-width: 90%;
+    
+    /* 📏 ANCHOS INTELIGENTES 📏 */
+    width: 90%;           /* Ocupa casi todo el ancho en cel */
+    min-width: 320px;     /* NO dejes que se haga más flaca que esto */
+    max-width: 420px;     /* Un tamaño perfecto para PC */
+    
+    margin: 20px auto;    /* Esto la centra solita en el eje X */
+    
     box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-top: 4px solid rgba(255, 255, 255, 0.8); 
+    border-top: 4px solid rgba(255, 255, 255, 0.8);
+    box-sizing: border-box; /* IMPRESCINDIBLE para que el padding no sume al ancho */
 }
 
 h1 {
