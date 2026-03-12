@@ -19,43 +19,47 @@ let intentos =0;
 //Evasión de los intentos
 
 
-function reaccionarBotonNo(e){
+function reaccionarBotonNo(e) {
+    // 🛑 EL FRENO DE MANO:
+    // Si el evento tiene "cancelable", lo detenemos para que no se ejecute dos veces
+    if (e && e.cancelable) {
+        e.preventDefault();
+    }
+    
+    // También detenemos la "propagación" para que no salte a otros elementos
+    if (e) {
+        e.stopPropagation();
+    }
 
-    console.log("El mouse tocó el botón. Intento actual:", intentos);
+    console.log("Evento:", e.type, "Intento actual:", intentos);
 
-    if(intentos === 0){
-
-        textoMensaje.innerText = "Ups, creo que tu dedo se resbaló. Intentalo de nuevo :)";
+    if (intentos === 0) {
+        textoMensaje.innerText = "Ups, creo que tu dedo se resbaló. Inténtalo de nuevo :)";
         esquivarBoton(btnNo);
-        intentos ++;
+        intentos++;
         titulo.style.display = 'none';
-        
-    }else if(intentos === 1){
-
-        textoMensaje.innerText = "¿Segura? El domingo va a estar aburrido sin tí..... :(";
+    } else if (intentos === 1) {
+        textoMensaje.innerText = "¿Segura? El domingo va a estar aburrido sin ti..... :(";
         esquivarBoton(btnNo);
-        intentos ++;
+        intentos++;
         titulo.style.display = 'none';
-
-    }else if(intentos === 2){
-
+    } else if (intentos === 2) {
         textoMensaje.innerText = "Última oportunidad antes de que el botón deje de moverse 🥺🥺 ";
         esquivarBoton(btnNo);
-        intentos ++;
+        intentos++;
         titulo.style.display = 'none';
-    }else{
-
-        //4to intento ya no se  mueve el botón F
-
-        textoMensaje.innerText = "";
-        btnNo.innerText = "Recharzar";
-
+    } else if (intentos === 3) { // 👈 Aseguramos que sea exactamente el intento 3
+        // 4to intento: Aquí es donde aparece el botón rosa
+        textoMensaje.innerText = ""; 
+        btnNo.innerText = "Rechazar";
+        
         btnSi.innerText = "¡Ándale, di que sí! 😁"; 
-        btnSi.style.backgroundColor = "whithe"; // Un color rosita para que resalte del blanco
+        btnSi.style.backgroundColor = "white";
         btnSi.style.color = "black";
-        btnSi.style.transform = "scale(1.1)"; // Lo hacemos un poquito más grande
+        btnSi.style.transform = "scale(1.1)";
         
         titulo.style.display = 'none';
+        intentos++; // Subimos a 4 para que ya no entre aquí
     }
 }
 
