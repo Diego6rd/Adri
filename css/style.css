@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #1a0b1c 0%, #301828 100%);
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden; 
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 50px 40px;
+    text-align: center;
+    width: 450px;
+    max-width: 90%;
+    box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: 4px solid rgba(255, 255, 255, 0.8); 
+}
+
+h1 {
+    font-weight: 800;
+    margin-bottom: 15px;
+    color: #ffb3c6; 
+    /* 🔥 EL BRILLO ROSA DE VUELTA 🔥 */
+    text-shadow: 0 0 10px rgba(255, 194, 209, 0.7), 0 0 20px rgba(255, 194, 209, 0.4); 
+}
+
+p, h2 { 
+    font-weight: 300;
+    font-size: 1.1rem;
+    color: white;
+    opacity: 0.9;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+/* 🔥 BOTONES DEL MISMO TAMAÑO 🔥 */
+.botones-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+button, #btnSi, #btnNo {
+    width: 260px !important; /* Tamaño fijo, no importa a donde huya */
+    height: 50px !important; /* Altura fija */
+    border-radius: 15px !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    transition: transform 0.2s ease, background-color 0.3s ease; /* Evita que parpadee al saltar */
+}
+
+/* BOTÓN SÍ */
+#btnSi {
+    background-color: #ff4d6d !important;
+    color: white !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4) !important;
+}
+
+#btnSi:hover {
+    background-color: #ff3355 !important;
+    transform: scale(1.05);
+}
+
+/* BOTÓN NO */
+#btnNo {
+    background-color: transparent !important;
+    color: #ff4d6d !important;
+    border: 2px solid #ff4d6d !important;
+}
